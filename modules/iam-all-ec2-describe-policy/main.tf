@@ -5,7 +5,7 @@ data "aws_iam_policy_document" "policy" {
     actions = [
       "ec2:Describe*",
     ]
-    Effect   = "Allow"
+    effect   = "Allow"
     Resource = "*"
   }
 }
