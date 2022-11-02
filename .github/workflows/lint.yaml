@@ -1,19 +1,8 @@
----
-name: terraform-lint
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - '*'
-
+name: hello-world
+on: push
 jobs:
-  lint:
+  my-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@main
-      - name: Lint Terraform
-        uses: actionshub/terraform-lint@main
+      - name: my-step
+        run: echo "Hello World!"
