@@ -2,6 +2,7 @@ name: checkov-code-scan
 
 on: 
   pull_request:
+  workflow_dispatch:
   
 jobs:
   plan:
