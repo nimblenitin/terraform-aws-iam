@@ -1,8 +1,30 @@
-name: hello-world
-on: push
+name: checkov-code-scan
+
+on: 
+  pull_request:
+  
 jobs:
-  my-job:
-    runs-on: self-hosted
+  plan:
+    name: checkov-scan
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
+          
     steps:
-      - name: my-step
-        run: echo "Hello World!"
+      - name: Check out code
+        uses: actions/checkout@v2
+        
+      - name: checkout checkov compositeAction
+        uses: actions/checkout@v3
+        with:
+          repository: infracloudio/github-shared-workflows
+          path: ./github-shared-workflows
+        
+      - name: run checkov scan against plan
+        uses: ./github-shared-workflows/.github/actions/checkov
+        with:
+          AWS_REGION: ${{secrets.AWS_REGION}}
+          OIDC_ROLE_ARN: ${{ secrets.OIDC_ROLE_ARN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
